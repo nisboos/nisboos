@@ -1,0 +1,35 @@
+﻿@model IEnumerable<project.Models.BookCoach>
+@{
+    ViewBag.Title = "BookCoachList";
+}
+
+<h2>預約教練</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th style="font-size: 20px;">教練編號</th>
+            <th style="font-size: 20px;">教練姓名</th>
+            <th style="font-size: 20px;">預約日期</th>
+            <th style="font-size: 20px;">預約時間</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.cId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cName)
+            </td>
+            <td>
+                @String.Format("{0:yyyy/MM/dd}", item.cDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cTime)
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,310 @@
+﻿@model project.Models.tCoach
+
+
+@{
+    Layout = null;
+}
+
+<head>
+    <style>
+        /* 強制預覽區域為正方形 */
+        .preview-container {
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+        }
+    </style>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/Template/login-form-01/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="~/Template/login-form-01/css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Template/login-form-01/css/bootstrap.min.css">
+    <!-- 添加以下JavaScript代碼 -->
+    <script>
+        $(document).ready(function () {
+            // 當選擇了新圖片時，即時顯示在預覽區域
+            $('#profileImage').on('input', function () {
+                showPreview(this);
+            });
+        });
+
+        // 顯示選擇的圖片預覽
+        function showPreview(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    // 使用選擇器來找到預覽容器的元素，並設置其 src 屬性
+                    $('#previewImage').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+
+
+    <!-- Style -->
+    <link rel="stylesheet" href="~/Template/login-form-01/css/style.css">
+    <script src="/Template/login-form-01/js/jquery-3.3.1.min.js"></script>
+    <script src="/Template/login-form-01/js/popper.min.js"></script>
+    <script src="/Template/login-form-01/js/bootstrap.min.js"></script>
+    <script src="/Template/login-form-01/js/main.js"></script>
+    <title>編輯教練資料</title>
+</head>
+
+<body>
+    @if (ViewBag.EditMode == true)
+    {
+        using (Html.BeginForm("Coachcenter", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="d-lg-flex half">
+                <img src="/Template/login-form-01/images/retrain_advanced.jpg" class="bg order-1 order-md-2">
+
+                <div class="contents order-2 order-md-1">
+                    <div class="container">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-md-7">
+                                <h3>編輯<strong>教練資料</strong></h3>
+                                <p class="mb-4"></p>
+
+                                <div class="form-group">
+                                    @Html.Label("帳號", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.fUserId, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入帳號", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(model => model.fUserId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("姓名", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.cName, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入姓名", value = @Model.cName } })
+                                        @Html.ValidationMessageFor(model => model.cName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("性別", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-10">
+                                        @Html.RadioButtonFor(model => model.cGender, "男", new { @class = "radio-button" }) 男
+                                        @Html.RadioButtonFor(model => model.cGender, "女", new { @class = "radio-button" }) 女
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("星座", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(model => model.cStar, Model.cStarOptions, new { @class = "form-control", placeholder = "請選擇星座" })
+                                        @Html.ValidationMessageFor(model => model.cStar, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    @Html.Label("興趣", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.cInterest, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入興趣", value = @Model.cInterest } })
+                                        @Html.ValidationMessageFor(model => model.cInterest, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("項目", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.cItem, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入項目", value = @Model.cItem } })
+                                        @Html.ValidationMessageFor(model => model.cItem, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("經驗年份", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.cYears, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入經驗年份", value = @Model.cYears } })
+                                        @Html.ValidationMessageFor(model => model.cYears, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("LINE ID", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.cLineid, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入LINE ID", value = @Model.cLineid } })
+                                        @Html.ValidationMessageFor(model => model.cLineid, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("電話號碼", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.cPhone, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入電話號碼", value = @Model.cPhone } })
+                                        @Html.ValidationMessageFor(model => model.cPhone, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("電子郵件", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.cEmail, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入電子郵件", value = @Model.cEmail } })
+                                        @Html.ValidationMessageFor(model => model.cEmail, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("照片", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-10 preview-container">
+                                        <!-- 使用Url.Content方法來生成圖片的完整URL -->
+                                        @if (!string.IsNullOrEmpty(Model.cImg))
+                                        {
+                                            <img src="@Url.Content(Model.cImg)" alt="教練照片" id="previewImage" style="max-width: 100%; max-height: 100%;">
+                                        }
+                                        else
+                                        {
+                                            <!-- 如果沒有圖片，顯示預設圖片 -->
+                                            <img src="path/to/default/image.jpg" alt="預設照片" id="previewImage" style="max-width: 100%; max-height: 100%;">
+                                        }
+                                    </div>
+                                    <input type="file" name="profileImage" id="profileImage" accept="image/*" />
+                                </div>
+
+
+
+
+                                <!-- 其他欄位與MemberCenter的視圖相同 -->
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="保存資料" class="btn btn-block btn-warning" />
+                                        @ViewBag.Message
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="d-lg-flex half">
+            <img src="/Template/login-form-01/images/retrain_advanced.jpg" class="bg order-1 order-md-2">
+
+            <div class="contents order-2 order-md-1">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-md-7">
+                            <h3>歡迎來到<strong>教練中心</strong></h3>
+                            <p>您可以點擊下方的按鈕進入編輯模式，修改教練資料。</p>
+                            <p class="mb-4"></p>
+
+                            <div class="form-group">
+                                @Html.Label("帳號", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-10">
+                                    <p class="form-control-static">@Model.fUserId</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("姓名", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-10">
+                                    <p class="form-control-static">@Model.cName</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("性別", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-10">
+                                    <p class="form-control-static">@Model.cGender</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("星座", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-10">
+                                    <p class="form-control-static">@Model.cStar</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("興趣", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-10">
+                                    <p class="form-control-static">@Model.cInterest</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("項目", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-10">
+                                    <p class="form-control-static">@Model.cItem</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("經驗年份", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-10">
+                                    <p class="form-control-static">@Model.cYears</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("LINE ID", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-10">
+                                    <p class="form-control-static">@Model.cLineid</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("電話號碼", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-10">
+                                    <p class="form-control-static">@Model.cPhone</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("電子郵件", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-10">
+                                    <p class="form-control-static">@Model.cEmail</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("照片", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-10 preview-container">
+                                    <!-- 使用Url.Content方法來生成圖片的完整URL -->
+                                    @if (!string.IsNullOrEmpty(Model.cImg))
+                                    {
+                                        <img src="@Url.Content(Model.cImg)" alt="教練照片" id="previewImage" style="max-width: 100%; max-height: 100%;">
+                                    }
+                                    else
+                                    {
+                                        <!-- 如果沒有圖片，顯示預設圖片 -->
+                                        <img src="path/to/default/image.jpg" alt="預設照片" id="previewImage" style="max-width: 100%; max-height: 100%;">
+                                    }
+                                </div>
+                            </div>   
+                            <div>
+                                @Html.ActionLink("返回列表", "Index", new { layout = "_LayoutMember" })
+                            </div>
+
+                            <div class="text-center">
+                                <p>
+                                    <button class="btn btn-block btn-warning" onclick="location.href='@Url.Action("Coachcenter", "Home", new { edit = true })'">我要編輯</button>
+                                    <button class="btn btn-block btn-warning" onclick="location.href='@Url.Action("Membercenter", "Home", new { edit = false })'">編輯會員資料</button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</body>

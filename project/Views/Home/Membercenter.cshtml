@@ -1,0 +1,234 @@
+﻿@model project.Models.tMember
+
+
+@{
+    Layout = null;
+
+}
+
+<head>
+    <!-- 密碼眼睛 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById("fPwd");
+            var confirmInput = document.getElementById("confirmPwd");
+            var eyeIcon = document.getElementById("eyeIcon");
+            var eyeIcon2 = document.getElementById("eyeIcon2");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+
+            if (confirmInput.type === "password") {
+                confirmInput.type = "text";
+                eyeIcon2.classList.remove("fa-eye");
+                eyeIcon2.classList.add("fa-eye-slash");
+            } else {
+                confirmInput.type = "password";
+                eyeIcon2.classList.remove("fa-eye-slash");
+                eyeIcon2.classList.add("fa-eye");
+            }
+        }
+    </script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/Template/login-form-01/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="~/Template/login-form-01/css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Template/login-form-01/css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="~/Template/login-form-01/css/style.css">
+    <script src="/Template/login-form-01/js/jquery-3.3.1.min.js"></script>
+    <script src="/Template/login-form-01/js/popper.min.js"></script>
+    <script src="/Template/login-form-01/js/bootstrap.min.js"></script>
+    <script src="/Template/login-form-01/js/main.js"></script>
+    <title>編輯會員資料</title>
+</head>
+
+<body>
+    @if (ViewBag.EditMode == true)
+    {
+        using (Html.BeginForm("Membercenter", "Home", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="d-lg-flex half">
+                <img src="/Template/login-form-01/images/retrain_advanced.jpg" class="bg order-1 order-md-2">
+
+                <div class="contents order-2 order-md-1">
+                    <div class="container">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-md-7">
+                                <h3>編輯<strong>會員資料</strong></h3>
+                                <p class="mb-4"></p>
+
+                                <div class="form-group">
+                                    @Html.Label("帳號", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.fUserId, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入帳號", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(model => model.fUserId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    @Html.Label("密碼", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-10">
+                                        <div class="input-group">
+                                            @Html.EditorFor(model => model.fPwd, new { htmlAttributes = new { @class = "form-control", type = "password", placeholder = "請輸入密碼", required = "required", @id = "fPwd" } })
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" onclick="togglePasswordVisibility()">
+                                                    <i class="fa fa-eye" id="eyeIcon"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.fPwd, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    @Html.Label("確認密碼", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-10">
+                                        <div class="input-group">
+                                            @Html.EditorFor(model => model.fPwd, new { htmlAttributes = new { @class = "form-control", type = "password", placeholder = "請再次輸入密碼", required = "required", @id = "confirmPwd" } })
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" onclick="togglePasswordVisibility('confirmPwd')">
+                                                    <i class="fa fa-eye" id="eyeIcon2"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.fPwd, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("姓名", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.fName, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入姓名", value = @Model.fName } })
+                                        @Html.ValidationMessageFor(model => model.fName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("Email", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.fEmail, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入電子信箱" } })
+                                        @Html.ValidationMessageFor(model => model.fEmail, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("生日", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.fBirthday, "{0:yyyy-MM-dd}", new { @class = "form-control", placeholder = "請輸入生日", type = "date" })
+                                        @Html.ValidationMessageFor(model => model.fBirthday, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("類別", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-10">
+                                        @Html.RadioButtonFor(model => model.fClass, "教練", new { @class = "radio-button" }) 教練
+                                        @Html.RadioButtonFor(model => model.fClass, "會員", new { @class = "radio-button" }) 會員
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="保存資料" class="btn btn-block btn-warning" />
+                                        @ViewBag.Message
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+
+
+    {
+
+        <div class="d-lg-flex half">
+            <img src="/Template/login-form-01/images/retrain_advanced.jpg" class="bg order-1 order-md-2">
+
+            <div class="contents order-2 order-md-1">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-md-7">
+                            <h3>歡迎來到<strong>會員中心</strong></h3>
+                            <p>您可以點擊下方的按鈕進入編輯模式，修改會員資料。</p>
+                            <p class="mb-4"></p>
+
+                            <div class="form-group">
+                                @Html.Label("帳號", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-10">
+                                    <p class="form-control-static">@Model.fUserId</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("密碼", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-10">
+                                    <p class="form-control-static">@Html.Raw(new string('*', Model.fPwd.Length))</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("姓名", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-10">
+                                    <p class="form-control-static">@Model.fName</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Email", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-10">
+                                    <p class="form-control-static">@Model.fEmail</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("生日", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-10">
+                                    <p class="form-control-static">@Model.fBirthday.ToShortDateString()</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("類別", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-10">
+                                    <p class="form-control-static">@Model.fClass</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                @Html.ActionLink("返回列表", "Index", new { layout = "_LayoutMember" })                                
+                            </div>
+                            <div class="text-center">
+                                <p>
+                                    <button class="btn btn-block btn-warning" onclick="location.href='@Url.Action("Membercenter", "Home", new { edit = true })'">我要編輯</button>
+                                    <button class="btn btn-block btn-warning" onclick="location.href='@Url.Action("Coachcenter", "Home", new { edit = false })'">編輯教練資料</button>                                 
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</body>

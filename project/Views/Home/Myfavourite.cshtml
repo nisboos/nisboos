@@ -1,0 +1,80 @@
+﻿@model IEnumerable<project.Models.tmyf>
+
+@{
+    ViewBag.Title = "Myfavourite";
+}
+
+<h2>我的最愛</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.cImg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cGender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cStar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cInterest)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cItem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cYears)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="@Url.Content(item.cImg)" width="212" height="242" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cGender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cStar)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cInterest)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cItem)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cYears)
+            </td>
+            <td>
+                @if (Session["Member"] == null)
+                {
+                    <p></p>
+                }
+                else
+                {
+                    <p>
+                        <a href="@Url.Action("DeleteMyf", "Home", new { cId = item.cId, cImg = item.cImg, cName = item.cName, cGender = item.cGender, cStar = item.cStar, cInterest = item.cInterest, cItem = item.cItem, cYears = item.cYears })"
+                           class="btn btn-primary">刪除我的最愛</a>
+                    </p>
+                    <p>
+                        <a href="@Url.Action("BookCoach", "Home", new { cId = item.cId })" class="btn btn-primary">預約教練</a>
+                    </p>
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+<a href="@Url.Action("Querycoach", "Home")"
+   class="btn btn-primary">返回查詢教練</a>

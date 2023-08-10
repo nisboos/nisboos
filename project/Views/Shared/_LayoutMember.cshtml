@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 智慧健身系統</title>
+    <img style="width:100%;height:300px" src="~/images/risen-wang-20jX9b35r_M-unsplash.jpg" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        /* 其他的CSS樣式保持不變 */
+
+        /* 將按鈕文字置中 */
+        .navbar-right > li + li {
+            margin-left: 7px;
+        }
+
+        .navbar-right li button {
+            text-align: center;
+            line-height: 35px; /* 設置與按鈕高度相同的行高，讓文字垂直置中 */
+            margin-top: 8px; /* 增加5px的上邊距，可以根據需要進行調整 */
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="其他選項">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("智慧健身系統-會員專區", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("產品列表", "Index", "Home")</li>
+                    <li>@Html.ActionLink("會員中心", "Membercenter", "Home")</li>
+                    <li>
+                        <a href="#" class="dropdown-toggle"
+                           data-toggle="dropdown">
+                            教練
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">@Html.ActionLink("教練管理", "Coachmanage", "Home")</a></li>
+                            <li><a href="#">@Html.ActionLink("我的最愛", "Myfavourite", "Home")</a></li>
+                            <li><a href="#">@Html.ActionLink("預約教練", "BookCoachList", "Home")</a></li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("購物車", "ShoppingCar", "Home")</li>
+                    <li>@Html.ActionLink("訂單", "OrderList", "Home")</li>
+                    <li>@Html.ActionLink("付款", "Payment", "Home")</li>
+                    <li><a href="#">@Session["Welcome"]</a></li>
+                </ul>               
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <button style="width: 72px; height: 36px; border-radius: 3px; background-color: #FDCB47; color: black;">
+                            <a href="@Url.Action("Logout", "Home")" style="display: block; width: 100%; height: 100%; text-decoration: none; color: black;">登出</a>
+                        </button>
+                    </li>
+                </ul>            
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - 智慧健身系統</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

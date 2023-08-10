@@ -1,0 +1,117 @@
+﻿@model IEnumerable<project.Models.tCoach>
+@{
+    ViewBag.Title = "Querycoach";
+}
+
+<h2>查詢教練</h2>
+<style>
+    /* 自定義「搜尋」按鈕文字大小 */
+    #searchButton {
+        font-size: 10px; /* 調整文字大小，這裡可以根據您的需求進行調整 */
+        padding: 10px 10px; /* 調整按鈕的內邊距，以增加按鈕的大小 */
+        margin-left: 15px; /* 調整按鈕與文字框之間的距離 */
+    }
+
+    /* 使用 Flexbox 來調整 TextBox 和按鈕的佈局 */
+    .form-group {
+        display: flex;
+        align-items: center;
+    }
+
+    /* 調整 TextBox 的寬度 */
+    .form-control {
+        flex: 1;
+    }
+
+    .image-container {
+        margin-bottom: 20px; /* 調整上下間距，這裡可以根據您的需求進行調整 */
+    }
+    /* 調整「新增我的最愛」按鈕的位置 */
+    .btn-add-to-favourite {
+        margin-right: 5px; /* 將按鈕往右移動 5 個字的距離 */
+        margin-top: 3px; /* 將按鈕往下移動 3 個字的距離 */
+    }
+</style>
+
+@using (Html.BeginForm("Querycoach", "Home", FormMethod.Get))
+{
+    <div class="form-group">
+        @Html.Label("搜尋：")
+        @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+
+        <button type="submit" id="searchButton" class="btn btn-primary">搜索</button>
+    </div>
+}
+
+<br />
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        var categories = item.cItem.Split('、');
+        <div class="col-sm-6">
+            <div class="image-container" data-category="@item.cItem" data-name="@item.cName" data-gender="@item.cGender"
+                 data-star="@item.cStar" data-categories="@item.cItem.ToLower() @item.cInterest.ToLower()">
+                <div style="display: flex; align-items: center;">
+                    <img src="@Url.Content(item.cImg)" width="212" height="242" />
+                    <div class="caption" style="margin-left: 10px;">
+                        <b style="font-size:15px">
+                            姓名：@item.cName<br />
+                            性別：@item.cGender<br />
+                            星座：@item.cStar<br />
+                            個人興趣：@item.cInterest<br />
+                            擅長的健體項目：@item.cItem<br />
+                            健齡：@item.cYears
+                        </b>
+                        @if (Session["Member"] != null)
+                        {
+                            <p>
+                                <a href="javascript:void(0);" onclick="addToMyFavourite('@item.cId', '@item.cImg', '@item.cName', '@item.cStar', '@item.cGender', '@item.cInterest', '@item.cItem', '@item.cYears')"
+                                   class="btn btn-primary btn-add-to-favourite">新增到我的最愛</a>
+                            </p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<br />
+<br />
+<a href="@ViewContext.HttpContext.Request.Headers["Referer"]" class="btn btn-primary">上一頁</a>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#categorySelect, #searchInput").change(function () {
+            filterCoaches();
+        });
+    });
+    function addToMyFavourite(cId, cImg, cName, cStar, cGender, cInterest, cItem, cYears) {
+        // 在這裡使用 AJAX 或其他方式將資料傳送至伺服器端進行儲存處理
+        // 這是一個示例，您可能需要根據您的程式架構進行適當的儲存處理
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("AddMyfavourite", "Home")",
+            data: {
+                cId: cId,
+                cImg: cImg,
+                cName: cName,
+                cStar: cStar,
+                cGender: cGender,
+                cInterest: cInterest,
+                cItem: cItem,
+                cYears: cYears
+            },
+            success: function (data) {
+                // 儲存成功後執行的處理
+                alert("已新增至我的最愛！");
+            },
+            error: function () {
+                // 儲存失敗時執行的處理
+                alert("儲存失敗，請稍後再試！");
+            }
+        });
+    }
+</script>

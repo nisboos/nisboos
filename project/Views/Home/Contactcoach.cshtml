@@ -1,0 +1,45 @@
+﻿@model IEnumerable<project.Models.tCoach>
+@{
+    ViewBag.Title = "Contactcoach";
+}
+
+<h2>聯絡教練</h2>
+
+<thead>
+    <style>
+        .image-container {
+            display: flex;
+            align-items: center;
+            margin: 80px 160px 0px 320px;
+        }
+
+            .image-container img {
+                margin-right: 10px;
+            }
+
+            .image-container .caption {
+                font-size: 14px;
+                color: #666;
+            }
+    </style>
+</thead>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="image-container">
+            <img src="@Url.Content(item.cImg)" width="212" height="242" />
+            <div class="caption">
+                <b style="font-size:25px">
+                    @item.cName (教練編號:@item.cId)<br />
+                    Line ID：@item.cLineid<br />
+                    電話：@item.cPhone<br />
+                    Email：@item.cEmail<br />
+                </b>
+            </div>
+        </div>
+    }
+</div>
+<br />
+<br />
+<a href="@ViewContext.HttpContext.Request.Headers["Referer"]"
+   class="btn btn-primary">上一頁</a>

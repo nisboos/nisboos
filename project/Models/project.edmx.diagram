@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="99e00cca222a4152949f596435f8db37" Name="Diagram1">
+        <EntityTypeShape EntityType="projectModel.tMember" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectModel.tOrder" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectModel.tOrderDetail" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectModel.tProduct" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectModel.sysdiagrams" Width="1.5" PointX="3.375" PointY="4.75" />
+        <EntityTypeShape EntityType="projectModel.BookCoach" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="projectModel.tmyf" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="projectModel.tShoppingCar" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="projectModel.tCoach" Width="1.5" PointX="5.375" PointY="4.375" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

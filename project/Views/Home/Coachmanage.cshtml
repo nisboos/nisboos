@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Coachmanage";
+}
+
+<br />
+
+<h2>教練管理</h2>
+
+<script>
+    $('#menu').menu();
+</script>
+
+<tbody>
+    <div>
+        <button style="position: relative; top: 15px; float:left; width: 150px; height: 75px; border: 2px blue none; background-color: #FDCB47;font-size: 25px">
+            <a href="@Url.Action("Querycoach", "Home")" style="color: black; text-decoration: none;">查詢教練</a>
+        </button>
+        <div>
+            <b style="font-size:22px">
+                <br />
+                &nbsp;&nbsp;&nbsp;快速查詢教練，提供詳細的教練信息業面，包括教練的照片、資格、技能、工作技能等
+            </b>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div>
+        <button style="position: relative; top: 20px; float:left; width: 150px; height: 75px; border: 2px blue none; background-color: #FDCB47; font-size: 25px">
+            <a href="@Url.Action("Contactcoach", "Home")" style="color: black; text-decoration: none;">聯絡教練</a>
+        </button>
+        <div>
+            <b style="font-size:22px">
+                <br />
+                &nbsp;&nbsp;&nbsp;快速聯繫特定的教練，進行日常管理、指導、安排課程，學生可在需要時直接聯繫教練<br />
+                &nbsp;，並加強學生與教練之間的溝通
+            </b>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div>
+        <button style="position: relative; top: 8px; float:left; width: 150px; height: 75px; border: 2px blue none; background-color: #FDCB47; font-size: 25px">
+            <a href="@Url.Action("Bookingclass", "Home")" style="color: black; text-decoration: none;">預約課程</a>
+        </button>
+        <div>
+            <b style="font-size:22px">
+                <br />
+                &nbsp;&nbsp;&nbsp;查看課程詳細信息與報名課程，方便地預約課程，並讓教練對課程進行安排和管理
+            </b>
+        </div>
+    </div>
+</tbody>
+
+

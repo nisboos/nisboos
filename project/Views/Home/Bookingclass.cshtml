@@ -1,0 +1,66 @@
+﻿@model IEnumerable<project.Models.tProduct>
+
+@{
+    ViewBag.Title = "Bookingclass";
+}
+
+<h2>預約課程</h2>
+<style>
+    /* 鼠标悬停时显示课程介绍 */
+    .course-info {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8); /* 设置半透明背景色 */
+        padding: 10px;
+    }
+
+    .course-image-container {
+        position: relative;
+    }
+
+        .course-image-container:hover .course-info {
+            display: block;
+        }
+</style>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-xs-4">
+            <div class="thumbnail">
+                <div class="course-image-container">
+                    <img src="~/images/@item.fImg" width="350" height="330" />
+                    <div class="course-info">
+                        <b style="font-size:20px">
+                            課程名稱： @item.fName<br />
+                            課程價格： @item.fPrice  元<br />
+                            課程簡介：<br />
+                            @item.fDescription
+                        </b>
+                    </div>
+                </div>
+                <div class="caption">
+                    <h2>@item.fName</h2>
+                </div>
+                @if (Session["Member"] == null)
+                {
+                    <p></p>
+                }
+                else
+                {
+                    <p>
+                        <a href="@Url.Action("AddCar", "Home", new { fPId = item.fPId })"
+                           class="btn btn-primary">搶先報名</a>
+                    </p>
+                }
+            </div>
+        </div>
+    }
+</div>
+<br />
+<br />
+<a href="@ViewContext.HttpContext.Request.Headers["Referer"]"
+   class="btn btn-primary">上一頁</a>

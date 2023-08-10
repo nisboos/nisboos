@@ -1,0 +1,67 @@
+﻿@model IEnumerable<project.Models.tmyf>
+
+@{
+    ViewBag.Title = "BookCoach";
+}
+
+<h2>預約教練</h2>
+<h3>教練資料</h3>
+<style>
+    /* 調整「確認預約」按鈕的顏色 */
+    input[type="submit"] {
+        background-color: #38a3df; /* 這裡可以改變按鈕的背景顏色，#ff0000 是紅色 */
+        color: #ffffff; /* 這裡可以改變按鈕的文字顏色，#ffffff 是白色 */
+        font-size: 14px; /* 這裡可以改變按鈕文字的大小 */
+        padding: 10px 20px; /* 這裡可以調整按鈕的內邊距，以增加按鈕的大小 */
+    }
+</style>
+<form method="post" action="@Url.Action("AddBookCoach", "Home")" onsubmit="return showConfirmationDialog();">
+    @foreach (var item in Model)
+    {
+        <p>教練編號: @Html.DisplayFor(modelItem => item.cId)</p>
+        <p>教練姓名: @Html.DisplayFor(modelItem => item.cName)</p>
+        <div>
+            <br />預約日期: <input type="date" name="cDate" id="cDate_@item.cId" required min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+        </div>
+        <div>
+            <br />預約時間: <input type="time" name="cTime" id="cTime_@item.cId" required />
+        </div>
+        <br />
+        <br /><input type="submit" value="確認預約" />
+        <input type="hidden" name="cId" value="@item.cId" />
+        <input type="hidden" name="cName" value="@item.cName" />
+    }
+</form>
+<br />
+<br />
+<br />
+
+<a href="@Url.Action("Querycoach", "Home")" class="btn btn-primary">返回查詢教練</a>
+
+<script>
+    function showConfirmationDialog() {
+        var cId = document.querySelector('input[name="cId"]').value;
+        var cDateElement = document.getElementById("cDate_" + cId);
+        var cDate = cDateElement.value;
+        var cTime = document.getElementById("cTime_" + cId).value;
+
+        var selectedDate = new Date(cDate);
+        var currentDate = new Date();
+
+        if (selectedDate < currentDate) {
+            alert("不能選擇過去的日期，請重新選擇日期。");
+            cDateElement.focus(); // 讓用戶直接回到日期輸入框
+            return false;
+        }
+
+        var confirmationMessage = "教練編號：" + cId + "\n預約日期：" + cDate + "\n預約時間：" + cTime + "\n確定要預約嗎？";
+
+        if (window.confirm(confirmationMessage)) {
+            // 使用者按下確認，表單將提交
+            return true;
+        } else {
+            // 使用者按下取消，表單不會提交
+            return false;
+        }
+    }
+</script>
