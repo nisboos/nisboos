@@ -30,7 +30,7 @@ public class PaymentController : Controller
         var apiResponse = await response.Content.ReadAsStringAsync();
         var confirmResponse = JsonConvert.DeserializeObject<PaymentConfirmResponseDto>(apiResponse);
 
-        if (confirmResponse.ReturnCode == "0000")
+        if (confirmResponse.ReturnCode == "0000")654651
         {
             string guid = Session["OrderGuid"].ToString();
             var order = db.tOrder
